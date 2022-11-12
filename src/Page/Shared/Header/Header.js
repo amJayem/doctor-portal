@@ -13,7 +13,7 @@ const Header = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-300 ">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -39,13 +39,10 @@ const Header = () => {
             {menuItem}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <Link to='/' className="btn btn-ghost normal-case text-xl">Doctor Portal</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItem}</ul>
-      </div>
-      <div className="navbar-end">
-        <a className="btn">Get started</a>
       </div>
     </div>
   );
