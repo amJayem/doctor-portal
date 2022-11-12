@@ -5,13 +5,13 @@ import footer from '../../../assets/images/footer.png';
 const Footer = () => {
   return (
     <div>
-      <footer className=" p-10 "
+      <footer className=" bg-base-200 p-10 "
       style={{
         backgroundImage: `url(${footer})`,
         backgroundSize: 'cover'    
       }}
       >
-        <div className="footer">
+        <div className="footer ">
           <div>
             <span className="footer-title">Services</span>
             <Link to='/' className="link link-hover">Branding</Link>

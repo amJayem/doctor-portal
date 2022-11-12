@@ -32,7 +32,7 @@ const ServiceCards = () => {
   ];
 
   return (
-    <div className="md:my-80 my-36">
+    <div className="md:my-50 my-36">
         <div className="text-center my-8">
             <h1 className="font-bold uppercase text-primary">Our services</h1>
             <p className="text-5xl">Service We Provide</p>

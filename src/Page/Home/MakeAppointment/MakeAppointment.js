@@ -12,7 +12,7 @@ const MakeAppointment = () => {
     >
       <div className="hero shadow-xl ">
         <div className="hero-content">
-            <img src={doctor} className="-mb-16 hidden md:block w-1/2 min-h-screen -mt-96" alt="Movie" />
+            <img src={doctor} className=" hidden md:block w-1/2  -mt-44" alt="Movie" />
           <div>
             <p className="font-bold text-xl text-primary">Appointment</p>
             <h2 className="my-5 text-3xl font-semibold">Make an appointment Today</h2>
