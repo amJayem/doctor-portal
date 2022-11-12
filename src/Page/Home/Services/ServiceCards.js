@@ -1,9 +1,10 @@
 import React from "react";
-import cavity from "../../../../assets/images/cavity.png";
-import fluoride from "../../../../assets/images/fluoride.png";
-import whitening from "../../../../assets/images/whitening.png";
+import cavity from "../../../assets/images/cavity.png";
+import fluoride from "../../../assets/images/fluoride.png";
+import whitening from "../../../assets/images/whitening.png";
 import ServiceCard from "./ServiceCard";
-import treatment from '../../../../assets/images/treatment.png'
+import treatment from '../../../assets/images/treatment.png'
+import PrimaryButton from "../../../Components/PrimaryButton/PrimaryButton";
 
 const ServiceCards = () => {
   const serviceData = [
@@ -31,7 +32,7 @@ const ServiceCards = () => {
   ];
 
   return (
-    <div className="my-36">
+    <div className="md:my-80 my-36">
         <div className="text-center my-8">
             <h1 className="font-bold uppercase text-primary">Our services</h1>
             <p className="text-5xl">Service We Provide</p>
@@ -46,7 +47,7 @@ const ServiceCards = () => {
         <div>
             <h1 className="text-3xl font-semibold my-5">Exceptional Dental Care, on Your Terms</h1>
             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsumis that it has a more-or-less normal distribution of letters,as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page</p>
-            <button className="btn btn-primary text-white mt-5">Get Started</button>
+            <PrimaryButton>Get Started</PrimaryButton>
         </div>
       </div>
     </div>
