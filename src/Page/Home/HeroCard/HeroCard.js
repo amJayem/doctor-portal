@@ -5,22 +5,22 @@ import phone from '../../../assets/icons/phone.svg'
 
 const HeroCard = () => {
   return (
-    <div className="flex gap-3 lg:-mt-16 sm:-mt-10">
-      <div className="text-white flex flex-row card bg-primary ">
-        <img src={clock} alt="" className=" w-20 p-3 text-white" />
+    <div className="flex gap-3 flex-col md:flex-row">
+      <div className=" md:items-start items-center text-white flex lg:flex-row center card bg-primary ">
+        <img src={clock} alt="" className="w-20 p-3 text-white" />
         <div className="card-body">
           <h2 className="card-title">Opening Hours</h2>
           <p>Lorem Ipsum is simply dummy text of the pri</p>
         </div>
       </div>
-      <div className="text-white flex flex-row card bg-neutral">
+      <div className=" md:items-start items-center text-white flex lg:flex-row card bg-neutral">
         <img src={marker} alt="" className=" w-20 p-3 text-white"  />
         <div className="card-body">
           <h2 className="card-title">Opening Hours</h2>
           <p>Lorem Ipsum is simply dummy text of the pri</p>
         </div>
       </div>
-      <div className="text-white flex flex-row card bg-primary ">
+      <div className=" md:items-start items-center text-white flex lg:flex-row card bg-primary ">
         <img src={phone} alt="" className=" w-20 p-3 text-white" />
         <div className="card-body">
           <h2 className="card-title">Opening Hours</h2>
