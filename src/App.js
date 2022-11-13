@@ -7,7 +7,6 @@ function App() {
     <div className="max-w-7xl mx-auto ">
       <RouterProvider router={routes}
       >
-
       </RouterProvider>
     </div>
   );
