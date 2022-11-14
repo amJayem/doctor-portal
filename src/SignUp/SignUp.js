@@ -1,20 +1,33 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from 'react-hook-form'
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 
 const SignUp = () => {
-  const { SignUpUser } = useContext(AuthContext);
+  const { SignUpUser, UpdateUser } = useContext(AuthContext);
   const { register, handleSubmit, formState: {errors},} = useForm();
+  const [signUpError, setSignUpError] = useState('');
 
   const handleSignUp = (data) => {
     console.log(data);
 
     SignUpUser(data.email, data.password)
-    .then(data => {
-      console.log(data);
-    })
-    .catch(e=>console.error('Sign up error => ', e));
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      // toast('User Created Successfully.')
+      const userInfo = {
+          displayName: data.name
+      };
+      console.log(userInfo.displayName,data.name);
+      UpdateUser(userInfo)
+          .then(() => { })
+          .catch(err => console.error('Update user error => ', err));
+  })
+    .catch(e=>{
+      setSignUpError(e.message);
+      console.error('signup error => ', e);
+    });
 
   };
 
@@ -79,8 +92,9 @@ const SignUp = () => {
           <input
             className="btn text-white w-full"
             type="submit"
-            value="login"
+            value="signup"
           />
+          {signUpError && <p className="text-error">{signUpError}</p>}
           <label className="label">
             <span className="label-text">
               Already have an account? 

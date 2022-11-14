@@ -13,7 +13,11 @@ const Header = () => {
       <li><Link to="/reviews">Reviews</Link></li>
       {
         user?.uid ? 
-        <li><Link onClick={SignOutUser} >Logout</Link></li>
+        <>
+          <li><Link to='/dashboard'>Dashboard</Link></li>
+          <li><Link onClick={SignOutUser} >Logout</Link></li>
+        </>
+        
         :
         <>
           <li><Link to="/login">Login</Link></li>
