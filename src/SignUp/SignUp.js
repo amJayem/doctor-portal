@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from 'react-hook-form'
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 
 const SignUp = () => {
-    const { register, handleSubmit, formState: {errors},} = useForm();
+  const { SignUpUser } = useContext(AuthContext);
+  const { register, handleSubmit, formState: {errors},} = useForm();
 
   const handleSignUp = (data) => {
     console.log(data);
+
+    SignUpUser(data.email, data.password)
+    .then(data => {
+      console.log(data);
+    })
+    .catch(e=>console.error('Sign up error => ', e));
+
   };
 
   return (
@@ -53,8 +62,9 @@ const SignUp = () => {
                 required: "Password is required",
                 minLength: {
                   value: 6,
-                  message: "Password must be 6 characters or longer",
                 },
+                pattern: {value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/i , message: "Password must be strong"},
+                message: "Password must be 6 characters or longer",
               })}
             />
             {errors.password && (

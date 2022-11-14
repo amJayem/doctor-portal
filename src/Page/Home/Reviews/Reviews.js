@@ -41,8 +41,8 @@ const Reviews = () => {
         <img className="w-1/4" src={quote} alt="" />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-20">
-        {review.map((rvw) => (
-          <>
+        {review.map((rvw,i) => (
+          <div key={i}>
             <div className=" shadow-xl">
               <div className="card-body">
                 <p>{rvw.comment}</p>
@@ -59,7 +59,7 @@ const Reviews = () => {
                 </div>
               </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
     </section>

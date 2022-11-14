@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const Login = () => {
+  const { SignInUser } = useContext(AuthContext);
+  const [LoginError, setLoginError] = useState('');
   const { register, handleSubmit, formState: { errors },} = useForm();
 
+  
   const handleLogin = (data) => {
     console.log(data);
+    setLoginError('');
+
+    SignInUser (data.email, data.password) 
+    .then(data => {
+      console.log(data);
+    })
+    .catch(e=>{
+      console.error('log in error => ',e);
+      setLoginError(e.message);
+    })
   };
 //   console.log(errors);
 
@@ -35,8 +49,7 @@ const Login = () => {
               placeholder="password"
               className="input input-bordered "
               {...register("password", {
-                required: "Password is required",
-                minLength: {value: 6, message: 'Password must be 6 characters or longer'}
+                required: "Password is required"
               })}
             />
             
@@ -52,6 +65,9 @@ const Login = () => {
             type="submit"
             value="login"
           />
+          {LoginError &&
+            <p className="text-error">{LoginError}</p>
+          }
           <label className="label">
             <span className="label-text">
               New to doctors portal?
