@@ -9,7 +9,7 @@ const PrivateRoute = ({children}) => {
     if(loading){
         return <div>Loading.......</div>
     }
-
+    // console.log('user from private route: ',user);
     if(user){
         return children;
     }

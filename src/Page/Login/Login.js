@@ -27,7 +27,7 @@ const Login = () => {
       setLoginError(e.message);
     })
   };
-//   console.log(errors);
+  console.log(errors);
 
   return (
     <div className="h-[800px] flex justify-center items-center">

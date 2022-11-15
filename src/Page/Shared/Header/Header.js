@@ -5,6 +5,12 @@ import { AuthContext } from "../../../Context/AuthProvider";
 const Header = () => {
   const { SignOutUser, user } = useContext(AuthContext);
 
+  const handleSignOut = () =>{
+    SignOutUser()
+    .then()
+    .catch(e=>console.error('sign out error => ',e));
+  }
+
   const menuItem = (
     <>
       <li><Link to="/">Home</Link></li>
@@ -15,7 +21,7 @@ const Header = () => {
         user?.uid ? 
         <>
           <li><Link to='/dashboard'>Dashboard</Link></li>
-          <li><Link onClick={SignOutUser} >Logout</Link></li>
+          <li><Link onClick={handleSignOut} >Logout</Link></li>
         </>
         
         :
