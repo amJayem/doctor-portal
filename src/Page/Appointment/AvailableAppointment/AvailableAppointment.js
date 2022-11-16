@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import AvailableAppointmentOption from "./AvailableAppointmentOption";
 import BookingModal from "../BookingModal/BookingModal";
 import { useQuery } from "@tanstack/react-query";
-import Loading from '../../Shared/Loading/Loading'
+import Loading from '../../Shared/Loading/Loading';
 
 const AvailableAppointment = ({ selectedDate }) => {
 
@@ -15,7 +15,7 @@ const AvailableAppointment = ({ selectedDate }) => {
     queryFn: async() => {
       const res = await fetch(`http://localhost:5000/appointmentOptions?date=${date}`);
       const data = await res.json();
-      return data
+      return data;
     }  
   });
 
