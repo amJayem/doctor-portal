@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { format } from "date-fns";
+import { AuthContext } from "../../../Context/AuthProvider";
+import toast from "react-hot-toast";
 
 const BookingModal = ({ treatment, selectedDate, setTreatment }) => {
+
+  const { user } = useContext(AuthContext);
+  console.log(user);
   const { name, slots } = treatment;
   const date = format(selectedDate, "PP");
 
@@ -20,7 +25,24 @@ const BookingModal = ({ treatment, selectedDate, setTreatment }) => {
         patient:name,
         email, phone};
     console.log(formInfo);
-    setTreatment(null);
+
+    fetch('http://localhost:5000/bookings',{
+      method: 'POST',
+      headers:{
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(formInfo)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data);
+      if(data.acknowledged){
+        toast.success("Appointment booked")
+        setTreatment(null);
+      }
+    })
+    .catch(e=>console.error('booking error => ', e));
+
   };
 
   return (
@@ -38,7 +60,6 @@ const BookingModal = ({ treatment, selectedDate, setTreatment }) => {
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 mt-10">
             <input
               type="text"
-              placeholder="Type here"
               className="input input-bordered w-full "
               value={date}
               disabled
@@ -51,13 +72,15 @@ const BookingModal = ({ treatment, selectedDate, setTreatment }) => {
             <input
               name="name"
               type="text"
-              placeholder="User name"
+              defaultValue={user?.displayName}
+              disabled
               className="input input-bordered w-full "
             />
             <input
               name="email"
               type="email"
-              placeholder="email address"
+              defaultValue={user?.email}
+              disabled
               className="input input-bordered w-full "
             />
             <input
