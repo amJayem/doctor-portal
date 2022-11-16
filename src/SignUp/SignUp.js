@@ -1,13 +1,16 @@
 import React, { useContext, useState } from "react";
 import { useForm } from 'react-hook-form'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 import toast from 'react-hot-toast';
+import SocialSignIn from "../Page/Shared/SocialSignIn/SocialSignIn";
 
 const SignUp = () => {
   const { SignUpUser, UpdateUser } = useContext(AuthContext);
   const { register, handleSubmit, formState: {errors},} = useForm();
   const [signUpError, setSignUpError] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSignUp = (data) => {
     // console.log(data);
@@ -23,7 +26,7 @@ const SignUp = () => {
       toast.success('User Created Successfully');
       
       UpdateUser(userInfo)
-          .then(() => { })
+          .then(() => { navigate('/') })
           .catch(err => console.error('Update user error => ', err));
   })
     .catch(e=>{
@@ -106,11 +109,7 @@ const SignUp = () => {
           </label>
         </form>
         <div className="divider">OR</div>
-        <input
-          className="btn btn-outline w-full"
-          type="submit"
-          value="continue with google"
-        />
+        <SocialSignIn/>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import SocialSignIn from "../Shared/SocialSignIn/SocialSignIn";
 
 const Login = () => {
   const { SignInUser } = useContext(AuthContext);
@@ -84,11 +85,7 @@ const Login = () => {
           </label>
         </form>
         <div className="divider">OR</div>
-        <input
-          className="btn btn-outline w-full"
-          type="submit"
-          value="continue with google"
-        />
+        <SocialSignIn/>
       </div>
     </div>
   );
