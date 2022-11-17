@@ -22,7 +22,7 @@ const Dashboard = () => {
 
   return (
     <div className="overflow-x-auto">
-      <h1 className="text-3xl mb-5">My Appointment</h1>
+      <h1 className="text-3xl my-5">My Appointment</h1>
       <table className="table w-full">
         <thead>
           <tr>
