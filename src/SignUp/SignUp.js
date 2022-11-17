@@ -1,39 +1,61 @@
 import React, { useContext, useState } from "react";
-import { useForm } from 'react-hook-form'
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 import SocialSignIn from "../Page/Shared/SocialSignIn/SocialSignIn";
 
 const SignUp = () => {
   const { SignUpUser, UpdateUser } = useContext(AuthContext);
-  const { register, handleSubmit, formState: {errors},} = useForm();
-  const [signUpError, setSignUpError] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [signUpError, setSignUpError] = useState("");
 
   const navigate = useNavigate();
 
   const handleSignUp = (data) => {
     // console.log(data);
 
-    setSignUpError('');
+    setSignUpError("");
     SignUpUser(data.email, data.password)
-    .then(result => {
-      const user = result.user;
-      console.log(user);
-      const userInfo = {
-        displayName: data.name
-      };
-      toast.success('User Created Successfully');
-      
-      UpdateUser(userInfo)
-          .then(() => { navigate('/') })
-          .catch(err => console.error('Update user error => ', err));
-  })
-    .catch(e=>{
-      setSignUpError(e.message);
-      console.error('signup error => ', e);
-    });
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        const userInfo = {
+          displayName: data.name,
+        };
+        toast.success("User Created Successfully");
 
+        UpdateUser(userInfo)
+          .then(() => {
+            saveUser(data.name, data.email);
+          })
+          .catch((err) => console.error("Update user error => ", err));
+      })
+      .catch((e) => {
+        setSignUpError(e.message);
+        console.error("signup error => ", e);
+      });
+  };
+
+  const saveUser = (name, email) => {
+    const user = { name, email };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        navigate('/');
+      })
+      .catch((e) => console.log("save user error => ", e));
   };
 
   return (
@@ -81,7 +103,11 @@ const SignUp = () => {
                 minLength: {
                   value: 6,
                 },
-                pattern: {value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/i , message: "Password must be strong"},
+                pattern: {
+                  value:
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/i,
+                  message: "Password must be strong",
+                },
                 message: "Password must be 6 characters or longer",
               })}
             />
@@ -102,14 +128,16 @@ const SignUp = () => {
           {signUpError && <p className="text-error">{signUpError}</p>}
           <label className="label">
             <span className="label-text">
-              Already have an account? 
-              <Link to="/login" className="text-secondary"> Login
+              Already have an account?
+              <Link to="/login" className="text-secondary">
+                {" "}
+                Login
               </Link>
             </span>
           </label>
         </form>
         <div className="divider">OR</div>
-        <SocialSignIn/>
+        <SocialSignIn />
       </div>
     </div>
   );

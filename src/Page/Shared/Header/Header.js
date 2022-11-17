@@ -5,31 +5,45 @@ import { AuthContext } from "../../../Context/AuthProvider";
 const Header = () => {
   const { SignOutUser, user } = useContext(AuthContext);
 
-  const handleSignOut = () =>{
+  const handleSignOut = () => {
     SignOutUser()
-    .then()
-    .catch(e=>console.error('sign out error => ',e));
-  }
+      .then()
+      .catch((e) => console.error("sign out error => ", e));
+  };
 
   const menuItem = (
     <>
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/appointment">Appointment</Link></li>
-      <li><Link to="/about">About</Link></li>
-      <li><Link to="/reviews">Reviews</Link></li>
-      {
-        user?.uid ? 
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/appointment">Appointment</Link>
+      </li>
+      <li>
+        <Link to="/about">About</Link>
+      </li>
+      <li>
+        <Link to="/reviews">Reviews</Link>
+      </li>
+      {user?.uid ? (
         <>
-          <li><Link to='/dashboard'>Dashboard</Link></li>
-          <li><Link onClick={handleSignOut} >Logout</Link></li>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li>
+            <Link onClick={handleSignOut}>Logout</Link>
+          </li>
         </>
-        
-        :
+      ) : (
         <>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/signUp">SignUp</Link></li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/signUp">SignUp</Link>
+          </li>
         </>
-      }
+      )}
     </>
   );
   return (
@@ -59,7 +73,17 @@ const Header = () => {
             {menuItem}
           </ul>
         </div>
-        <Link to='/' className="btn btn-ghost normal-case text-xl">Doctor Portal</Link>
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
+          Doctor Portal
+        </Link>
+        <div className="sm:mr-5">
+          <label
+            htmlFor="my-drawer-2"
+            className="btn btn-primary text-white drawer-button lg:hidden"
+          >
+            Open dashboard
+          </label>
+        </div>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItem}</ul>
