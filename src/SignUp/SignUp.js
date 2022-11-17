@@ -53,10 +53,22 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        navigate('/');
+        getUserToken(email);
       })
-      .catch((e) => console.log("save user error => ", e));
+      .catch((e) => console.error("save user error => ", e));
   };
+
+  const getUserToken = email =>{
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data);
+      if(data.accessToken){
+        localStorage.setItem('Doctor-portal-token: ', data.accessToken)
+        navigate('/');
+      }
+    })
+  }
 
   return (
     <div className="h-[800px] flex justify-center items-center">
