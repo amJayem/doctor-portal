@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 import toast from "react-hot-toast";
 import SocialSignIn from "../Page/Shared/SocialSignIn/SocialSignIn";
+import useToken from "../Hooks/useToken";
 
 const SignUp = () => {
   const { SignUpUser, UpdateUser } = useContext(AuthContext);
@@ -14,7 +15,13 @@ const SignUp = () => {
   } = useForm();
   const [signUpError, setSignUpError] = useState("");
 
+  const [userEmail, setUserEmail] = useState('');
+  const [token] = useToken(userEmail);
+
   const navigate = useNavigate();
+  if(token){
+    navigate('/');
+  }
 
   const handleSignUp = (data) => {
     // console.log(data);
@@ -53,22 +60,12 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        getUserToken(email);
+        // getUserToken(email);
+        setUserEmail(email);
       })
       .catch((e) => console.error("save user error => ", e));
   };
 
-  const getUserToken = email =>{
-    fetch(`http://localhost:5000/jwt?email=${email}`)
-    .then(res=>res.json())
-    .then(data=>{
-      console.log(data);
-      if(data.accessToken){
-        localStorage.setItem('Doctor-portal-token: ', data.accessToken)
-        navigate('/');
-      }
-    })
-  }
 
   return (
     <div className="h-[800px] flex justify-center items-center">

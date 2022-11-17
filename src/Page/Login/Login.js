@@ -2,26 +2,34 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import useToken from "../../Hooks/useToken";
 import SocialSignIn from "../Shared/SocialSignIn/SocialSignIn";
 
 const Login = () => {
   const { SignInUser } = useContext(AuthContext);
   const [LoginError, setLoginError] = useState('');
   const { register, handleSubmit, formState: { errors },} = useForm();
+  
+  const [userEmail, setUserEmail] = useState('');
+  const [token] = useToken(userEmail);
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const from = location?.from?.pathname || '/';
-  
+
+  if(token){
+    navigate(from, {replace: true});
+  }
+
   const handleLogin = (data) => {
     console.log(data);
     setLoginError('');
 
     SignInUser (data.email, data.password) 
-    .then(data => {
-      console.log(data);
-      navigate(from, {replace: true});
+    .then(result => {
+      console.log(result);
+      setUserEmail(data.email);
     })
     .catch(e=>{
       console.error('log in error => ',e);
