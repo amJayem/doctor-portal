@@ -28,6 +28,7 @@ const DashBoardLayout = () => {
               <li>
                 <Link to='/dashboard/users'>Users</Link>
                 <Link to='/dashboard/add-a-doctor'>Add Doctor</Link>
+                <Link to='/dashboard/manage-doctors'>Manage Doctor</Link>
               </li>
             }
           </ul>

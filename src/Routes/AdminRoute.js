@@ -10,7 +10,7 @@ const AdminRoute = ({children}) => {
     const location = useLocation();
 
     if(loading || isAdminLoading){
-        return <Loading/>
+        return Loading();
     }
     // console.log('user from private route: ',user);
     if(user && isAdmin){

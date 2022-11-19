@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import Loading from "../Shared/Loading/Loading";
 
 const AddDoctor = () => {
@@ -20,22 +21,25 @@ const AddDoctor = () => {
     },
   });
 
+  const navigate = useNavigate();
+
   const imgHostingKey=process.env.REACT_APP_imgbb_Key;
 
   if (isLoading) {
-    return <Loading />;
+    return Loading();
   }
 
   const handleAddDoctor = (doctorInfo) => {
-    console.log(doctorInfo);
+    // console.log(doctorInfo);
 
     const img = doctorInfo.img[0];
     const formData = new FormData();
     formData.append('image',img);
-    const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgHostingKey}`;
+    const url = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`;
 
     fetch(url,{
         method: 'POST',
+        // headers: { authorization: `bearer ${localStorage.getItem("token")}` },
         body: formData
     })
     .then(res=>res.json())
@@ -58,7 +62,8 @@ const AddDoctor = () => {
             .then(data => {
                 // console.log(data,doctor.name);
                 if(data.acknowledged){
-                    toast.success(`Doctor '${doctor.name}' added successfully`)
+                    toast.success(`Doctor added successfully`);
+                    navigate('/dashboard/manage-doctors');
                 }
             })
             .catch(e=>console.error('failed to post doctor => ', e));
@@ -66,6 +71,7 @@ const AddDoctor = () => {
     })
     .catch(e=>console.error('img upload error => ',e))
   };
+
   return (
     <div className="w-4/5">
       <div className="flex justify-center items-center">

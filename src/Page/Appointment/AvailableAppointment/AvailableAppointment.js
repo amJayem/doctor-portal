@@ -20,7 +20,7 @@ const AvailableAppointment = ({ selectedDate }) => {
   });
 
   if(isLoading){
-    return <Loading/>
+    return Loading();
   }
   
   // const [appointmentOptions, setAppointmentOptions] = useState([]);
