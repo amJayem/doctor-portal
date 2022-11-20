@@ -1,7 +1,10 @@
 import React from "react";
 
-const AvailableAppointmentOption = ({ option, setTreatment }) => {
-  const { slots, name } = option;
+const AvailableAppointmentOption = ({ option,  setTreatment }) => {
+
+  // console.log(option);
+
+  const { slots, name, price } = option;
   return (
     <div>
       <div className="card shadow-xl">
@@ -11,6 +14,7 @@ const AvailableAppointmentOption = ({ option, setTreatment }) => {
           <p>
             {slots.length} {slots.length > 1 ? "spaces" : "space"} available
           </p>
+          <p>Price: ${price}</p>
           <div className="card-actions justify-center">
             <label disabled={slots.length === 0} onClick={()=>setTreatment(option)} htmlFor="my-modal-3" className="btn btn-primary text-white">
               Get appointment
