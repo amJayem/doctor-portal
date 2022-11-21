@@ -7,7 +7,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment,refetch }) => {
 
   const { user } = useContext(AuthContext);
   console.log(user);
-  const { name, slots } = treatment;
+  const { name, slots, price } = treatment;
   const date = format(selectedDate, "PP");
 
   const handleSubmit = e =>{
@@ -23,7 +23,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment,refetch }) => {
         AppointmentDate:date,
         slot,
         patient:name,
-        email, phone};
+        email, phone, price: treatment.price};
     console.log(formInfo);
 
     fetch('http://localhost:5000/bookings',{
@@ -93,6 +93,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment,refetch }) => {
               placeholder="phone"
               className="input input-bordered w-full "
             />
+            <p>Price: ${price}</p>
             <input
               className="btn bg-neutral text-white"
               type="submit"

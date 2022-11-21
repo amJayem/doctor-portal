@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 
 const Dashboard = () => {
@@ -28,19 +29,30 @@ const Dashboard = () => {
           <tr>
             <th></th>
             <th>Name</th>
+            <th>Email</th>
             <th>Treatment</th>
             <th>Date</th>
             <th>Time</th>
+            <th>Price</th>
           </tr>
         </thead>
         <tbody>
             {bookings?.map((booking,i) => (
               <tr key={i}>
                 <th>{i+1}</th>
+                <td>{booking.name}</td>
                 <td>{booking.email}</td>
                 <td>{booking.treatment}</td>
                 <td>{booking.AppointmentDate}</td>
                 <td>{booking.slot}</td>
+                <td>
+                  {booking.price &&
+                    <Link to={`/dashboard/payment/:${booking._id}`} className="btn btn-primary text-white">Pay ${booking.price}</Link>}
+                    {
+                      booking.price && booking.paid &&
+                      <span className="text-success">PAID</span>
+                    }
+                </td>
               </tr>
             ))}
         </tbody>
