@@ -39,7 +39,6 @@ const AddDoctor = () => {
 
     fetch(url,{
         method: 'POST',
-        // headers: { authorization: `bearer ${localStorage.getItem("token")}` },
         body: formData
     })
     .then(res=>res.json())
@@ -56,6 +55,7 @@ const AddDoctor = () => {
             fetch(`http://localhost:5000/doctors`,{
                 method: 'post',
                 headers:{ 'content-type': 'application/json' },
+                authorization: `bearer ${localStorage.getItem("token")}`,
                 body: JSON.stringify(doctor)
             })
             .then(res=>res.json())

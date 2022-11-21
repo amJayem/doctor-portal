@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ booking }) => {
-  const { price, patient, email } = booking;
+  const { price, patient, email, _id } = booking;
   const [clientSecret, setClientSecret] = useState();
   const [cardError, setCardError] = useState("");
   const [success, setSuccess] = useState("");
@@ -10,6 +11,7 @@ const CheckoutForm = ({ booking }) => {
   const [processing, setProcessing] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:5000/create-payment-intent", {
@@ -68,8 +70,29 @@ const CheckoutForm = ({ booking }) => {
     }
 
     if (paymentIntent.status === "succeeded") {
+      console.log('card info: ',card);
       setSuccess(`Congratulations! your payment complete`);
       setTransactionId(paymentIntent.id);
+
+      const payment = {
+        price, email, transactionId: paymentIntent.id, bookingId: _id
+      }
+
+      fetch('http://localhost:5000/payments',{
+        method: 'post',
+        headers: {
+          'content-type': 'application/json',
+          authorization: `bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(payment)
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        // if(data.acknowledge){
+          navigate('/dashboard')
+        // }
+      })
     }
     setProcessing(false);
   };

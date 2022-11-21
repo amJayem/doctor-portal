@@ -46,11 +46,14 @@ const Dashboard = () => {
                 <td>{booking.AppointmentDate}</td>
                 <td>{booking.slot}</td>
                 <td>
-                  {booking.price &&
+                  {booking.price && !booking.paid &&
                     <Link to={`/dashboard/payment/${booking._id}`} className="btn btn-primary text-white">Pay ${booking.price}</Link>}
                     {
                       booking.price && booking.paid &&
-                      <span className="text-success">PAID</span>
+                      <div className="w-5">
+                      <span className="btn btn-success text-white">PAID</span> <br />
+                      <span>{booking.transactionId}</span>
+                      </div>
                     }
                 </td>
               </tr>
