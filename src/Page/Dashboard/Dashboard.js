@@ -47,7 +47,7 @@ const Dashboard = () => {
                 <td>{booking.slot}</td>
                 <td>
                   {booking.price &&
-                    <Link to={`/dashboard/payment/:${booking._id}`} className="btn btn-primary text-white">Pay ${booking.price}</Link>}
+                    <Link to={`/dashboard/payment/${booking._id}`} className="btn btn-primary text-white">Pay ${booking.price}</Link>}
                     {
                       booking.price && booking.paid &&
                       <span className="text-success">PAID</span>

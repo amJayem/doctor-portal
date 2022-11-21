@@ -9,6 +9,7 @@ import Payment from "../Page/Dashboard/Payment";
 import Users from "../Page/Dashboard/Users";
 import Home from "../Page/Home/Home";
 import Login from "../Page/Login/Login";
+import DisplayError from "../Page/Shared/DisplayError/DisplayError";
 import SignUp from "../SignUp/SignUp";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
@@ -17,6 +18,7 @@ export const routes = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <DisplayError/>,
     children: [
       {
         path: "/",
@@ -43,6 +45,7 @@ export const routes = createBrowserRouter([
         <DashBoardLayout />
       </PrivateRoute>
     ),
+    errorElement: <DisplayError/>,
     children: [
       {
         path: "/dashboard",
@@ -78,7 +81,7 @@ export const routes = createBrowserRouter([
         <AdminRoute>
           <Payment />
       </AdminRoute>,
-        loader: ({params})=>fetch(`http://localhost:5000/dashboard/${params.id}`)
+        loader: ({params})=>fetch(`http://localhost:5000/bookings/${params.id}`)
       }
     ],
   },
